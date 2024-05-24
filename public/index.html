@@ -34,6 +34,34 @@
 
 <br>
 <br>
+<label for="startDate">Start Date:</label>
+<input type="date" id="startDate" name="startDate">
+<label for="endDate">End Date:</label>
+<input type="date" id="endDate" name="endDate">
+<button onclick="searchByDateRange()">Search</button>
+
+
+<script>
+  function searchByDateRange() {
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+
+    // Use the startDate and endDate values to query your database for Bitcoin data within the specified range
+
+    // Example:
+    // You can use AJAX to send a request to your backend server with the startDate and endDate
+    // Here's a simplified example using fetch:
+    fetch(`/search?startDate=${startDate}&endDate=${endDate}`)
+            .then(response => response.json())
+            .then(data => {
+              // Handle the retrieved data, such as displaying it on the page
+              console.log(data);
+              // Here, you can loop through the data and display it on the page as needed
+            })
+            .catch(error => console.error('Error:', error));
+  }
+</script>
+
 
 
 
