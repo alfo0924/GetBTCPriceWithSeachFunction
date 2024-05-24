@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Bitcoin Chart</title>
+
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+  <style>
+    body{
+      padding: 150px;
+      background-color: rgba(222, 222, 222, 0.74);
+      background-blend-mode: multiply;
+      align-items: center;
+      text-decoration: none;
+      align-content: center;
+      justify-content: center;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+<div class="tradingview-widget-container">
+  <div id="tradingview_12345"></div>
+</div>
+<!--<iframe src="https://www.investing.com/crypto/bitcoin/chart" width="100%" height="600"></iframe>-->
+
+
+
+<br>
+<br>
+
+
+
+<script type="text/javascript">
+  new TradingView.widget({
+    "width": 980,
+    "height": 610,
+    "symbol": "BTCUSD",
+    "interval": "D",
+    "timezone": "Etc/UTC",
+    "timezone": "Asia/Taipei",  <!-- Changed timezone to Asia/Taipei -->
+    "theme": "light",
+    "style": "1",
+    "locale": "en",
+    "toolbar_bg": "#f1f3f6",
+    "enable_publishing": false,
+    "allow_symbol_change": true,
+    "container_id": "tradingview_12345"
+  });
+</script>
+
+</body>
+</html>
