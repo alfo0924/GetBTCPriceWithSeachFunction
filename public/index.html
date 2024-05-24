@@ -30,36 +30,68 @@
 
 <br>
 <br>
+
+
+
+<!-- Date input fields and search button -->
 <label for="startDate">Start Date:</label>
 <input type="date" id="startDate" name="startDate">
 <label for="endDate">End Date:</label>
 <input type="date" id="endDate" name="endDate">
 <button onclick="searchByDateRange()">Search</button>
 
+
+
+<!-- Container to display queried data -->
+<div id="pricesContainer"></div>
+
+<!-- Script for handling date range search and displaying data -->
 <script>
   function searchByDateRange() {
+    // Get start and end dates from input fields
     var startDate = document.getElementById("startDate").value;
     var endDate = document.getElementById("endDate").value;
+
+    console.log("Start Date:", startDate);
+    console.log("End Date:", endDate);
 
     // Send a request to the backend with the startDate and endDate
     fetch(`/search?startDate=${startDate}&endDate=${endDate}`)
             .then(response => response.json())
             .then(data => {
-              // Handle the retrieved data, such as displaying it on the page
-              console.log(data);
-              // Here, you can loop through the data and display it on the page as needed
+              console.log("Response Data:", data); // Debugging statement
+              // Handle the retrieved data and display it on the page
+              displayData(data);
             })
             .catch(error => console.error('Error:', error));
   }
+
+  // Function to display data on the page
+  function displayData(data) {
+    // Example: Assuming data contains Bitcoin prices
+    // You can modify this part based on your actual data structure
+    var pricesContainer = document.getElementById("pricesContainer");
+    pricesContainer.innerHTML = ""; // Clear previous data
+
+    // Loop through the data and create HTML elements to display it
+    data.forEach(price => {
+      var priceElement = document.createElement("p");
+      priceElement.textContent = `Price: ${price.price}, Date: ${price.date}`;
+      pricesContainer.appendChild(priceElement);
+    });
+  }
 </script>
 
+
+
+
+<!-- Initialize TradingView chart -->
 <script type="text/javascript">
   new TradingView.widget({
     "width": 980,
     "height": 610,
     "symbol": "BTCUSD",
     "interval": "D",
-    "timezone": "Etc/UTC",
     "timezone": "Asia/Taipei",  <!-- Changed timezone to Asia/Taipei -->
     "theme": "light",
     "style": "1",
@@ -70,6 +102,7 @@
     "container_id": "tradingview_12345"
   });
 </script>
+
 
 </body>
 </html>
