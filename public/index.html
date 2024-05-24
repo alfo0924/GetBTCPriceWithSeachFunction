@@ -24,13 +24,9 @@
 
 <h1>bitcoin</h1>
 
-
 <div class="tradingview-widget-container">
   <div id="tradingview_12345"></div>
 </div>
-<!--<iframe src="https://www.investing.com/crypto/bitcoin/chart" width="100%" height="600"></iframe>-->
-
-
 
 <br>
 <br>
@@ -40,17 +36,12 @@
 <input type="date" id="endDate" name="endDate">
 <button onclick="searchByDateRange()">Search</button>
 
-
 <script>
   function searchByDateRange() {
     var startDate = document.getElementById("startDate").value;
     var endDate = document.getElementById("endDate").value;
 
-    // Use the startDate and endDate values to query your database for Bitcoin data within the specified range
-
-    // Example:
-    // You can use AJAX to send a request to your backend server with the startDate and endDate
-    // Here's a simplified example using fetch:
+    // Send a request to the backend with the startDate and endDate
     fetch(`/search?startDate=${startDate}&endDate=${endDate}`)
             .then(response => response.json())
             .then(data => {
@@ -61,9 +52,6 @@
             .catch(error => console.error('Error:', error));
   }
 </script>
-
-
-
 
 <script type="text/javascript">
   new TradingView.widget({

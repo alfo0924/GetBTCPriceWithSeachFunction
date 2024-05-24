@@ -6,6 +6,7 @@ const sqlite3 = require('sqlite3').verbose(); // Import SQLite module
 
 const app = express();
 
+// Middleware setup
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -13,7 +14,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Create database connection
-const db = new sqlite3.Database('path/to/your/sqlite.db');
+const dbPath = path.resolve(__dirname, 'path', 'to', 'your', 'sqlite.db');
+const db = new sqlite3.Database(dbPath);
 
 // Search endpoint for filtering data between dates
 app.get('/search', (req, res) => {
@@ -31,7 +33,10 @@ app.get('/search', (req, res) => {
     });
 });
 
+// Start the server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;
