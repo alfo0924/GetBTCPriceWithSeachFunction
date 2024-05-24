@@ -31,8 +31,6 @@
 <br>
 <br>
 
-
-
 <!-- Date input fields and search button -->
 <label for="startDate">Start Date:</label>
 <input type="date" id="startDate" name="startDate">
@@ -40,40 +38,37 @@
 <input type="date" id="endDate" name="endDate">
 <button onclick="searchByDateRange()">Search</button>
 
-
-
 <!-- Container to display queried data -->
 <div id="pricesContainer"></div>
 
-<!-- Script for handling date range search and displaying data -->
+<!-- JavaScript for handling date range search and displaying data -->
 <script>
   function searchByDateRange() {
-    // Get start and end dates from input fields
     var startDate = document.getElementById("startDate").value;
     var endDate = document.getElementById("endDate").value;
 
     console.log("Start Date:", startDate);
     console.log("End Date:", endDate);
 
-    // Send a request to the backend with the startDate and endDate
     fetch(`/search?startDate=${startDate}&endDate=${endDate}`)
             .then(response => response.json())
             .then(data => {
-              console.log("Response Data:", data); // Debugging statement
-              // Handle the retrieved data and display it on the page
-              displayData(data);
+              console.log("Response Data:", data);
+              displayData(data, startDate, endDate); // Pass startDate and endDate to displayData function
             })
             .catch(error => console.error('Error:', error));
   }
 
-  // Function to display data on the page
-  function displayData(data) {
-    // Example: Assuming data contains Bitcoin prices
-    // You can modify this part based on your actual data structure
+  function displayData(data, startDate, endDate) {
     var pricesContainer = document.getElementById("pricesContainer");
-    pricesContainer.innerHTML = ""; // Clear previous data
+    pricesContainer.innerHTML = "";
 
-    // Loop through the data and create HTML elements to display it
+    // Display the selected date range
+    var dateRangeElement = document.createElement("p");
+    dateRangeElement.textContent = `Date Range: ${startDate} to ${endDate}`;
+    pricesContainer.appendChild(dateRangeElement);
+
+    // Display queried data
     data.forEach(price => {
       var priceElement = document.createElement("p");
       priceElement.textContent = `Price: ${price.price}, Date: ${price.date}`;
@@ -81,6 +76,7 @@
     });
   }
 </script>
+
 
 
 

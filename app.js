@@ -28,7 +28,7 @@ app.get('/search', (req, res) => {
     const { startDate, endDate } = req.query;
 
     // Query database for data between startDate and endDate
-    const query = `SELECT * FROM your_table WHERE date BETWEEN ? AND ?`;
+    const query = `SELECT * FROM BTCUSD WHERE date BETWEEN ? AND ?`;
     db.all(query, [startDate, endDate], (err, rows) => {
         if (err) {
             console.error('Error executing query:', err.message);
