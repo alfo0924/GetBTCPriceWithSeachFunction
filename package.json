@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "deploy": "gh-pages -d public"
-  }
-,
+    "start": "node ./bin/www"
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -13,8 +12,5 @@
     "express": "~4.16.1",
     "morgan": "~1.9.1",
     "sqlite3": "^5.1.7"
-  },
-  "devDependencies": {
-    "gh-pages": "^6.1.1"
   }
 }
