@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Create database connection
-const dbPath = path.resolve(__dirname, 'C:\\Users\\user\\WebstormProjects\\GetBTCPriceWithSeachFunction\\db', 'sqlite.db');
+const dbPath = path.resolve(__dirname, 'db', 'sqlite.db');
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Error connecting to the database:', err.message);
@@ -25,14 +25,17 @@ const db = new sqlite3.Database(dbPath, (err) => {
     }
 });
 
-// Function to create btc_prices table
+// Function to create BTCUSD table
 const createTable = () => {
     const createTableSQL = `
-        CREATE TABLE IF NOT EXISTS btc_prices (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            date DATE NOT NULL,
-            close DECIMAL(10, 2) NOT NULL,
-            volume BIGINT NOT NULL
+        CREATE TABLE IF NOT EXISTS BTCUSD (
+            Date TEXT,
+            Open REAL,
+            High REAL,
+            Low REAL,
+            Close REAL,
+            Adj_Close REAL,
+            Volume INTEGER
         )
     `;
     db.run(createTableSQL, (err) => {
@@ -44,15 +47,15 @@ const createTable = () => {
     });
 };
 
-// Function to insert data into btc_prices table
+// Function to insert data into BTCUSD table
 const insertData = () => {
     const insertSQL = `
-        INSERT INTO btc_prices (date, close, volume) VALUES
-                                                         ('2024-05-25', 68536.88, 28293212160),
-                                                         ('2024-05-23', 67929.56, 41895680979),
-                                                         ('2024-05-22', 69122.34, 32802561717),
-                                                         ('2024-05-21', 70136.53, 46932005990),
-                                                         ('2024-05-20', 71448.20, 43850655717)
+        INSERT INTO BTCUSD (Date, Open, High, Low, Close, Adj_Close, Volume) VALUES
+                                                         ('2024-05-25', 68536.88, 68536.88, 68536.88, 68536.88, 68536.88, 28293212160),
+                                                         ('2024-05-23', 67929.56, 67929.56, 67929.56, 67929.56, 67929.56, 41895680979),
+                                                         ('2024-05-22', 69122.34, 69122.34, 69122.34, 69122.34, 69122.34, 32802561717),
+                                                         ('2024-05-21', 70136.53, 70136.53, 70136.53, 70136.53, 70136.53, 46932005990),
+                                                         ('2024-05-20', 71448.20, 71448.20, 71448.20, 71448.20, 71448.20, 43850655717)
     `;
     db.run(insertSQL, (err) => {
         if (err) {
@@ -68,7 +71,7 @@ app.get('/search', (req, res) => {
     const { startDate, endDate } = req.query;
 
     // Query database for data between startDate and endDate
-    const query = `SELECT * FROM btc_prices WHERE date BETWEEN ? AND ?`;
+    const query = `SELECT * FROM BTCUSD WHERE Date BETWEEN ? AND ?`;
     db.all(query, [startDate, endDate], (err, rows) => {
         if (err) {
             console.error('Error executing query:', err.message);
@@ -79,13 +82,13 @@ app.get('/search', (req, res) => {
     });
 });
 
-// Endpoint for inserting data into btc_prices table
+// Endpoint for inserting data into BTCUSD table
 app.post('/insert', (req, res) => {
-    const { date, close, volume } = req.body;
+    const { date, open, high, low, close, adj_close, volume } = req.body;
 
-    // Insert data into btc_prices table
-    const insertSQL = `INSERT INTO btc_prices (date, close, volume) VALUES (?, ?, ?)`;
-    db.run(insertSQL, [date, close, volume], (err) => {
+    // Insert data into BTCUSD table
+    const insertSQL = `INSERT INTO BTCUSD (Date, Open, High, Low, Close, Adj_Close, Volume) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(insertSQL, [date, open, high, low, close, adj_close, volume], (err) => {
         if (err) {
             console.error('Error inserting data:', err.message);
             res.status(500).json({ error: 'Internal server error' });
