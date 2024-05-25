@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<h1>bitcoin</h1>
+<h1>Bitcoin</h1>
 
 <div class="tradingview-widget-container">
   <div id="tradingview_12345"></div>
@@ -75,7 +75,7 @@
     } else {
       data.forEach(price => {
         var priceElement = document.createElement("p");
-        priceElement.textContent = `Price: ${price.price}, Date: ${price.date}`;
+        priceElement.textContent = `Price: ${price.close}, Date: ${price.date}`;
         pricesContainer.appendChild(priceElement);
       });
     }
@@ -98,31 +98,6 @@
     "allow_symbol_change": true,
     "container_id": "tradingview_12345"
   });
-</script>
-<script>
-    function displayData(data, startDate, endDate) {
-        var pricesContainer = document.getElementById('pricesContainer');
-        pricesContainer.innerHTML = '';
-
-        // Display the selected date range
-        var dateRangeElement = document.createElement('p');
-        dateRangeElement.textContent = `Date Range: ${startDate} to ${endDate}`;
-        pricesContainer.appendChild(dateRangeElement);
-
-        // Display queried data
-        if (data.length === 0) {
-            var noDataElement = document.createElement('p');
-            noDataElement.textContent = 'No data available for the selected date range.';
-            pricesContainer.appendChild(noDataElement);
-        } else {
-            data.forEach(price => {
-                var priceElement = document.createElement('p');
-                priceElement.textContent = `Price: ${price.close}, Date: ${price.date}`; // Corrected to display 'price.close'
-                pricesContainer.appendChild(priceElement);
-            });
-        }
-    }
-
 </script>
 
 </body>
