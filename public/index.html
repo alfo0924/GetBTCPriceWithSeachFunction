@@ -75,7 +75,7 @@
     } else {
       data.forEach(price => {
         var priceElement = document.createElement("p");
-        priceElement.textContent = `Price: ${price.close}, Date: ${price.date}`;
+        priceElement.textContent = `Date: ${price.Date}, Close: ${price.Close}, Volume: ${price.Volume}`;
         pricesContainer.appendChild(priceElement);
       });
     }
