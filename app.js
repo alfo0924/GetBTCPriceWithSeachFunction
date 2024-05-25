@@ -23,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     }
 // });
 
-
 const dbPath = path.join(__dirname, 'db', 'sqlite.db');
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
