@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sqlite3 = require('sqlite3').verbose();
+const cors = require('cors'); // Import cors module
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors()); // Enable CORS for all routes
 
 // Create database connection
 const dbPath = path.join(__dirname, 'db', 'sqlite.db');
@@ -36,8 +38,13 @@ app.get('/search', (req, res) => {
             console.error('Error executing query:', err.message);
             res.status(500).json({ error: 'Internal server error' });
         } else {
-            console.log('Data retrieved from the database:', rows);
-            res.json(rows);
+            if (rows.length === 0) {
+                console.log('No data found for the specified date range');
+                res.status(404).json({ message: 'No data found' });
+            } else {
+                console.log('Data retrieved from the database:', rows);
+                res.json(rows);
+            }
         }
     });
 });
@@ -66,5 +73,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
-
