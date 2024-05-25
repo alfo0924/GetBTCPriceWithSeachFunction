@@ -47,7 +47,9 @@
     console.log("Start Date:", startDate);
     console.log("End Date:", endDate);
 
-    fetch(`/search?startDate=${startDate}&endDate=${endDate}`)
+    // Update with the correct server URL if needed
+    var serverUrl = 'http://example.com'; // Replace with your server URL
+    fetch(`${serverUrl}/search?startDate=${startDate}&endDate=${endDate}`)
             .then(response => {
               if (!response.ok) {
                 throw new Error('Network response was not ok');
