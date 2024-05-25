@@ -24,6 +24,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
     }
 });
 
+
 // Routes
 app.get('/', (req, res) => {
     res.send('API is working'); // Basic response to confirm API is working
