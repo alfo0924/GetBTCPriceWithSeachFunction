@@ -20,15 +20,59 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.error('Error connecting to the database:', err.message);
     } else {
         console.log('Connected to the database');
+        createTable();
+        insertData();
     }
 });
+
+// Function to create btc_prices table
+const createTable = () => {
+    const createTableSQL = `
+        CREATE TABLE IF NOT EXISTS btc_prices (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date TEXT NOT NULL,
+            open REAL NOT NULL,
+            high REAL NOT NULL,
+            low REAL NOT NULL,
+            close REAL NOT NULL,
+            adj_close REAL NOT NULL,
+            volume INTEGER NOT NULL
+        );
+    `;
+    db.run(createTableSQL, (err) => {
+        if (err) {
+            console.error('Error creating table:', err.message);
+        } else {
+            console.log('Table created successfully');
+        }
+    });
+};
+
+// Function to insert data into btc_prices table
+const insertData = () => {
+    const insertSQL = `
+        INSERT INTO btc_prices (date, open, high, low, close, adj_close, volume) VALUES
+        ('2024-05-25', 68536.88, 68683.17, 68534.86, 68683.17, 68683.17, 28293212160),
+        ('2024-05-23', 69121.30, 70041.27, 66356.95, 67929.56, 67929.56, 41895680979),
+        ('2024-05-22', 70135.32, 70623.70, 68977.70, 69122.34, 69122.34, 32802561717),
+        ('2024-05-21', 71443.06, 71946.46, 69191.13, 70136.53, 70136.53, 46932005990),
+        ('2024-05-20', 66278.74, 71483.56, 66086.17, 71448.20, 71448.20, 43850655717);
+    `;
+    db.run(insertSQL, (err) => {
+        if (err) {
+            console.error('Error inserting data:', err.message);
+        } else {
+            console.log('Data inserted successfully');
+        }
+    });
+};
 
 // Search endpoint for filtering data between dates
 app.get('/search', (req, res) => {
     const { startDate, endDate } = req.query;
 
     // Query database for data between startDate and endDate
-    const query = `SELECT * FROM BTCUSD WHERE date BETWEEN ? AND ?`;
+    const query = `SELECT * FROM btc_prices WHERE date BETWEEN ? AND ?`;
     db.all(query, [startDate, endDate], (err, rows) => {
         if (err) {
             console.error('Error executing query:', err.message);
