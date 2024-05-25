@@ -25,6 +25,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 app.get('/search', (req, res) => {
     const { startDate, endDate } = req.query;
+    console.log("Received search request with startDate:", startDate, "and endDate:", endDate); // Debugging log
     const query = `SELECT Date, Close, Volume FROM BTCUSD WHERE Date BETWEEN ? AND ?`;
     db.all(query, [startDate, endDate], (err, rows) => {
         if (err) {
@@ -55,7 +56,6 @@ app.post('/insert', (req, res) => {
         }
     });
 });
-
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
