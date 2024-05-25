@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const sqlite3 = require('sqlite3').verbose(); // Import SQLite module
+const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 

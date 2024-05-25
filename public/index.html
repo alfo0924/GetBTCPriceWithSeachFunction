@@ -6,7 +6,7 @@
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
   <style>
-    body{
+    body {
       padding: 150px;
       background-color: rgba(222, 222, 222, 0.74);
       background-blend-mode: multiply;
@@ -16,7 +16,6 @@
       justify-content: center;
       text-align: center;
       text-transform: uppercase;
-
     }
   </style>
 </head>
@@ -69,18 +68,19 @@
     pricesContainer.appendChild(dateRangeElement);
 
     // Display queried data
-    data.forEach(price => {
-      var priceElement = document.createElement("p");
-      priceElement.textContent = `Price: ${price.price}, Date: ${price.date}`;
-      pricesContainer.appendChild(priceElement);
-    });
+    if (data.length === 0) {
+      var noDataElement = document.createElement("p");
+      noDataElement.textContent = "No data available for the selected date range.";
+      pricesContainer.appendChild(noDataElement);
+    } else {
+      data.forEach(price => {
+        var priceElement = document.createElement("p");
+        priceElement.textContent = `Price: ${price.price}, Date: ${price.date}`;
+        pricesContainer.appendChild(priceElement);
+      });
+    }
   }
 </script>
-
-
-
-
-
 
 <!-- Initialize TradingView chart -->
 <script type="text/javascript">
@@ -99,7 +99,6 @@
     "container_id": "tradingview_12345"
   });
 </script>
-
 
 </body>
 </html>
