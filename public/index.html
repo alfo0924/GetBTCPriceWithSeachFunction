@@ -2,7 +2,9 @@
 <html>
 <head>
   <title>Live Bitcoin Chart</title>
+
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
   <style>
     body {
       padding: 150px;
@@ -47,18 +49,11 @@
     console.log("Start Date:", startDate);
     console.log("End Date:", endDate);
 
-    // Update this URL to point to your deployed server
-    var serverUrl = 'http://example.com'; // Replace with your server URL
-    fetch(`${serverUrl}/search?startDate=${startDate}&endDate=${endDate}`)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.json();
-            })
+    fetch(`/search?startDate=${startDate}&endDate=${endDate}`)
+            .then(response => response.json())
             .then(data => {
               console.log("Response Data:", data);
-              displayData(data, startDate, endDate);
+              displayData(data, startDate, endDate); // Pass startDate and endDate to displayData function
             })
             .catch(error => console.error('Error:', error));
   }
@@ -94,7 +89,7 @@
     "height": 610,
     "symbol": "BTCUSD",
     "interval": "D",
-    "timezone": "Asia/Taipei",
+    "timezone": "Asia/Taipei",  <!-- Changed timezone to Asia/Taipei -->
     "theme": "light",
     "style": "1",
     "locale": "en",
@@ -107,3 +102,4 @@
 
 </body>
 </html>
+
