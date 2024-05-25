@@ -29,15 +29,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
 const createTable = () => {
     const createTableSQL = `
         CREATE TABLE IF NOT EXISTS btc_prices (
-                                                  id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                  date TEXT NOT NULL,
-                                                  open REAL NOT NULL,
-                                                  high REAL NOT NULL,
-                                                  low REAL NOT NULL,
-                                                  close REAL NOT NULL,
-                                                  adj_close REAL NOT NULL,
-                                                  volume INTEGER NOT NULL
-        );
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date DATE NOT NULL,
+            close DECIMAL(10, 2) NOT NULL,
+            volume BIGINT NOT NULL
+        )
     `;
     db.run(createTableSQL, (err) => {
         if (err) {
@@ -51,12 +47,12 @@ const createTable = () => {
 // Function to insert data into btc_prices table
 const insertData = () => {
     const insertSQL = `
-        INSERT INTO btc_prices (date, open, high, low, close, adj_close, volume) VALUES
-                                                                                     ('2024-05-25', 68536.88, 68683.17, 68534.86, 68683.17, 68683.17, 28293212160),
-                                                                                     ('2024-05-23', 69121.30, 70041.27, 66356.95, 67929.56, 67929.56, 41895680979),
-                                                                                     ('2024-05-22', 70135.32, 70623.70, 68977.70, 69122.34, 69122.34, 32802561717),
-                                                                                     ('2024-05-21', 71443.06, 71946.46, 69191.13, 70136.53, 70136.53, 46932005990),
-                                                                                     ('2024-05-20', 66278.74, 71483.56, 66086.17, 71448.20, 71448.20, 43850655717);
+        INSERT INTO btc_prices (date, close, volume) VALUES
+                                                         ('2024-05-25', 68536.88, 28293212160),
+                                                         ('2024-05-23', 67929.56, 41895680979),
+                                                         ('2024-05-22', 69122.34, 32802561717),
+                                                         ('2024-05-21', 70136.53, 46932005990),
+                                                         ('2024-05-20', 71448.20, 43850655717)
     `;
     db.run(insertSQL, (err) => {
         if (err) {
