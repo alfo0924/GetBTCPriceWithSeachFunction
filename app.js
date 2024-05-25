@@ -14,15 +14,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Create database connection
-// const dbPath = path.resolve(__dirname, 'C:\\Users\\user\\WebstormProjects\\GetBTCPriceWithSeachFunction\\db', 'sqlite.db');
-// const db = new sqlite3.Database(dbPath, (err) => {
-//     if (err) {
-//         console.error('Error connecting to the database:', err.message);
-//     } else {
-//         console.log('Connected to the database');
-//     }
-// });
-
 const dbPath = path.join(__dirname, 'db', 'sqlite.db');
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
@@ -31,8 +22,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.log('Connected to the database');
     }
 });
-
-
 
 // Search endpoint for filtering data between dates
 app.get('/search', (req, res) => {
