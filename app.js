@@ -12,7 +12,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname))); // Serve static files from the root directory
 app.use(cors());
 
 // Database setup
@@ -27,7 +26,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html')); // Serve the HTML file
+    res.send('API is working'); // Basic response to confirm API is working
 });
 
 // Search endpoint

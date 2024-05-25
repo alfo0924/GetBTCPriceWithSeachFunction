@@ -2,9 +2,7 @@
 <html>
 <head>
   <title>Live Bitcoin Chart</title>
-
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-
   <style>
     body {
       padding: 150px;
@@ -42,6 +40,8 @@
 
 <!-- JavaScript for handling date range search and displaying data -->
 <script>
+  const apiUrl = 'https://your-api-url.com'; // Replace with your actual API URL
+
   function searchByDateRange() {
     var startDate = document.getElementById("startDate").value;
     var endDate = document.getElementById("endDate").value;
@@ -49,11 +49,11 @@
     console.log("Start Date:", startDate);
     console.log("End Date:", endDate);
 
-    fetch(`/search?startDate=${startDate}&endDate=${endDate}`)
+    fetch(`${apiUrl}/search?startDate=${startDate}&endDate=${endDate}`)
             .then(response => response.json())
             .then(data => {
               console.log("Response Data:", data);
-              displayData(data, startDate, endDate); // Pass startDate and endDate to displayData function
+              displayData(data, startDate, endDate);
             })
             .catch(error => console.error('Error:', error));
   }
@@ -89,7 +89,7 @@
     "height": 610,
     "symbol": "BTCUSD",
     "interval": "D",
-    "timezone": "Asia/Taipei",  // Changed timezone to Asia/Taipei
+    "timezone": "Asia/Taipei",
     "theme": "light",
     "style": "1",
     "locale": "en",
